@@ -10,4 +10,4 @@ cartRouter.get("/", userAuth, getCartItems);
 cartRouter.post("/add/:productId", userAuth,cart, addToCart);
 cartRouter.delete("/remove/:productId", userAuth, removeFromCart);
 
-module.exports = cartRouter;
+module.exports = cart;
