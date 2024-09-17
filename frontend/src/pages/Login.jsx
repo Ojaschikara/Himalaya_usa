@@ -1,73 +1,134 @@
-// import {
-//   Box,
-//   Heading,
-//   Input,
-//   Button,
-//   VStack,
-//   Container,
-// } from "@chakra-ui/react";
-// import { useState, useContext } from "react";
-// import axios from "axios";
-// import { AuthContext } from "../context/AuthContextProvider";
-// import { Navigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Divider,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  SimpleGrid,
+  Text,
+  useDisclosure,
+  useToast, // Import useToast
+} from "@chakra-ui/react";
+import Signup from "./Signup";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { loginUser } from "../Redux/Login/actions";
 
-// export default function Login() {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
+const Login = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.loginState);
 
-//   const {
-//     login,
-//     authDetails: { isLoggedIn },
-//   } = useContext(AuthContext);
+  const toast = useToast();
 
-//   async function handleClick() {
-//     try {
-//       let resp = await axios({
-//         method: "post",
-//         url: "https://reqres.in/api/login",
-//         data: {
-//           email,
-//           password,
-//         },
-//       });
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
 
-//       login(resp?.data?.token);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-//   if (isLoggedIn) {
-//     return <Navigate to="/" />;
-//   }
+    dispatch(loginUser(credentials));
 
-//   return (
-//     <Container maxW={"600px"}>
-//       <VStack spacing={6}>
-//         <Heading as="h1" size="xl">
-//           Login Page
-//         </Heading>
+    if (isLogin) {
+      toast({
+        title: "Login Successful",
+        description: `Login Successful.`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      onClose();
+    } else {
+      toast({
+        title: "Error",
+        description: "Wrong Credentials.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
-//         <Input
-//           placeholder="Email"
-//           type="email"
-//           value={email}
-//           onChange={(e) => {
-//             setEmail(e.target.value);
-//           }}
-//         />
-//         <Input
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => {
-//             setPassword(e.target.value);
-//           }}
-//         />
+  return (
+    <Box>
+      <Button
+        color={"white"}
+        bgColor={"black"}
+        borderRadius={"20px"}
+        onClick={onOpen}
+        w={"100%"}
+      >
+        Sign In
+      </Button>
 
-//         <Button variant="outline" colorScheme="red" onClick={handleClick}>
-//           LOGIN
-//         </Button>
-//       </VStack>
-//     </Container>
-//   );
-// }
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Sign In</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <form onSubmit={handleSubmit}>
+              <SimpleGrid spacing={"15px"}>
+                <Text fontWeight={400} fontSize={"14px"}>
+                  Sign in or create an account to enjoy FREE standard shipping
+                  on all orders.
+                </Text>
+
+                <Input
+                  type="email"
+                  placeholder={"Email Address"}
+                  onChange={(e) =>
+                    setCredentials((prevCreden) => ({
+                      ...prevCreden,
+                      email: e.target.value,
+                    }))
+                  }
+                />
+                <Input
+                  type="password"
+                  placeholder={"Password"}
+                  onChange={(e) =>
+                    setCredentials((prevCreden) => ({
+                      ...prevCreden,
+                      password: e.target.value,
+                    }))
+                  }
+                />
+                <Text fontWeight={400} fontSize={"11px"}>
+                  By clicking “Sign In”, you (1) agree to the current version of
+                  our TERMS OF USE, and (2) have read Sephora’s Privacy Policy
+                </Text>
+
+                <Button
+                  bgColor={"black"}
+                  color={"white"}
+                  borderRadius={"20px"}
+                  _hover={{ bgColor: "grey" }}
+                  type="submit"
+                >
+                  Sign In
+                </Button>
+              </SimpleGrid>
+            </form>
+
+            <Divider />
+            <SimpleGrid spacing={"12px"} py={"20px"}>
+              <Text>New to Sephora?</Text>
+
+              <Signup />
+            </SimpleGrid>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </Box>
+  );
+};
+
+export default Login;

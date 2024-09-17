@@ -1,38 +1,26 @@
-import { Link as ReactRouterLink } from "react-router-dom";
-import {Link as ChakraLink, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import Header from "./Navbar/Header";
+import Navbar1 from "./Navbar/Navbar1";
+import Navbar2 from "./Navbar/Navbar2";
+import Navbar3 from "./Navbar/Navbar3";
 
-
-
-
-const links = [
-  {
-    to: "/swimlanecard",
-    label: "TICKETS",
-  },
- 
-];
-
-export default function Navbar() {
- 
-
+const Navbar = () => {
   return (
-    <Flex
-      align="center"
-      justify="space-around"
-      background="gray.200"
-      padding={4}
-    >
-      {links?.map((link) => (
-        <ChakraLink
-          as={ReactRouterLink}
-          key={link.to}
-          to={link.to}
-          color="gray.900"
-        >
-          {link.label}
-        </ChakraLink>
-      ))}
-   
-    </Flex>
+    <Box>
+      {/* *-----------------------------Header 1---------------------------* */}
+      <Header />
+
+      {/* *--------------------------------Navbar 1 ----------------------------* */}
+
+      <Navbar1 />
+
+      {/* *---------------------------Navbar 2----------------------------------* */}
+      <Navbar2 />
+
+      {/* *------------------------Small Screen Navbar3-----------------------------* */}
+      <Navbar3 />
+    </Box>
   );
-}
+};
+
+export default Navbar;

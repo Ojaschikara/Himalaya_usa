@@ -1,14 +1,11 @@
-import "./App.css";
-import AllRoutes from "./components/AllRoutes";
-import Navbar from "./components/Navbar";
-import DragAndDrop from "./pages/dragAndDrop"
+import { ChakraProvider } from "@chakra-ui/react";
+import AllRoutes from "./Routers/AllRoutes";
+
 function App() {
   return (
-    <>
-      <Navbar />
-      
+    <ChakraProvider>
       <AllRoutes />
-    </>
+    </ChakraProvider>
   );
 }
 
