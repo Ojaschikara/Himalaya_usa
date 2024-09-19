@@ -1,5 +1,11 @@
-import { applyMiddleware, legacy_createStore } from "redux";
-import rootReducer from "./rootReducer";
-import { thunk } from "redux-thunk";
+// src/store.js
+import { configureStore } from '@reduxjs/toolkit';
+import userSlices from './slices/userSlices';
 
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
+const store = configureStore({
+  reducer: {
+    user:userSlices
+  },
+});
+
+export default store;

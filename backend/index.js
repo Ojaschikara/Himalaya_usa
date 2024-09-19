@@ -1,29 +1,33 @@
-const cors = require('cors')
-const express = require("express");
-require("dotenv").config();
-PORT = process.env.PORT || 3000;
-const connection = require("./config/db");
-const userRouter = require("./routes/user.routes");
-const productRouter = require("./routes/product.routes");
-const cartRouter = require('./routes/cart.routes');
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import cors from "cors";
+import cart from "./routes/cartRoutes.js";
+import product from "./routes/productRoutes.js";
+import user from "./routes/userRoutes.js";
+//config
+dotenv.config();
+const app = express();
+app.use(express.json());
+app.use(cors({
+  origin:'*'
+}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-const server = express();
+//routes
+app.use("/cart", cart);
+app.use("/user", user);
+app.use("/products", product);
 
-server.use(cors())
-server.use(express.json());
-server.use("/user", userRouter);
-server.use("/product", productRouter);
-server.use('/cart', cartRouter)
-
-server.get("/", (_, res) => {
-  res.status(200).send("Health check done, Server is Running.");
-});
-
-server.listen(PORT, async () => {
-  try {
-    await connection;
-    console.log("Server is Running and DB is Connected.");
-  } catch (error) {
-    console.log(error.message);
-  }
-});
+//mongoose
+const PORT = process.env.PORT || 9898;
+const MONGO_URL = process.env.MONGO_URL;
+console.log(MONGO_URL, PORT);
+mongoose
+  .connect(MONGO_URL)
+  .then(() => {
+    app.listen(PORT, () => console.log(`server started at ${PORT}`));
+  })
+  .catch((error) => console.log("error while connecting to db : ", error));
