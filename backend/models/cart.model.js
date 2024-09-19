@@ -7,7 +7,9 @@ const cartSchema = new mongoose.Schema(
     collection: "cart",
     strict: false,
     versionKey:false,
+
   }
+  
 );
 const cartModel = mongoose.model("cart", cartSchema);
 export default cartModel;
