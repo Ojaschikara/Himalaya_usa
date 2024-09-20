@@ -95,7 +95,7 @@ const Product = () => {
   }, [sorting, data]);
   useEffect(() => {
     axios
-      .get("https://himalaya-usa-clone.onrender.com/products")
+      .get("https://himalaya-usa-clone2.onrender.com/products")
       .then((response) => {
         if (category !== "all") {
           setData(
@@ -108,6 +108,7 @@ const Product = () => {
         } else {
           setData(response.data);
         }
+        // https://himalaya-usa-clone2.onrender.com
         console.log(
           response.data.filter(
             (res) =>

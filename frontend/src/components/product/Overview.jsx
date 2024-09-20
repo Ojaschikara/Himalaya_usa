@@ -18,7 +18,7 @@ const Overview = () => {
     try {
       const { name, price, imageUrl, _id } = details;
       const response = await axios.post(
-        `https://himalaya-usa-clone.onrender.com/cart`,
+        `https://himalaya-usa-clone2.onrender.com/cart`,
         {
           email,
           name,
@@ -28,7 +28,7 @@ const Overview = () => {
           productId: _id,
         }
       );
-
+     
       console.log(response.data);
       navigate(`/cart`);
     } catch (error) {
@@ -39,7 +39,7 @@ const Overview = () => {
   const updateProductCount = async (id, count) => {
     try {
       const response = await axios.put(
-        `https://himalaya-usa-clone.onrender.com/products/${id}`,
+        `https://himalaya-usa-clone2.onrender.com/products/${id}`,
         {
           count,
         }
@@ -54,7 +54,7 @@ const Overview = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://himalaya-usa-clone.onrender.com/products/${id}`
+          `https://himalaya-usa-clone2.onrender.com/products/${id}`
         );
         console.log(response.data, "deta");
         setDetails(response.data);

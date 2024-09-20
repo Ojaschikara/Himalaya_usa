@@ -93,7 +93,7 @@ const ShoppingCart = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          `https://himalaya-usa-clone.onrender.com/cart/getByEmail`,
+          `https://himalaya-usa-clone2.onrender.com/cart/getByEmail`,
           {
             email,
           }
@@ -131,7 +131,7 @@ const ShoppingCart = () => {
   const handleDelete = async (productId) => {
     try {
       await axios.delete(
-        `https://himalaya-usa-clone.onrender.com/cart/${email}/${productId}`
+        `https://himalaya-usa-clone2.onrender.com/cart/${email}/${productId}`
       );
       setDetails((prevDetails) =>
         prevDetails.filter((detail) => detail.productId !== productId)

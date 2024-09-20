@@ -37,7 +37,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://himalaya-usa-clone.onrender.com/user/register",
+        "https://himalaya-usa-clone2.onrender.com/user/register",
         user
       );
       console.log(response.data, "data", response.data.user._id);
@@ -51,10 +51,10 @@ const Register = () => {
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
 
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate("/", { replace: true });
-      },1000);
-      
+      }, 1000);
+
     } catch (error) {
       console.error(error);
       setSnackbarMessage("Registration Failed. Please try again.");

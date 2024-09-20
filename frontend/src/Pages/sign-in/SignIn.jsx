@@ -20,7 +20,7 @@ const SignIn = () => {
 
     try {
       const response = await axios.post(
-        "https://himalaya-usa-clone.onrender.com/user/login",
+        "https://himalaya-usa-clone2.onrender.com/user/login",
         login,
         {
           headers: {
@@ -36,15 +36,15 @@ const SignIn = () => {
           id: response.data.user._id,
         })
       );
-      
+
       setSnackbarMessage("Successfully Signed In!");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
 
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate("/account", { replace: true });
-      },1000);
-      
+      }, 1000);
+
     } catch (error) {
       console.error("Error logging in:", error);
       setSnackbarMessage("Login Failed. Please check your credentials.");
